@@ -1,9 +1,14 @@
-# [HipFlask](https://hip-flask.herokuapp.com/)
+# [HipFlask](https://hip-flask.onrender.com/)
 
-This repo automatically deploys to https://hip-flask.herokuapp.com/ <br/> 
+This repo automatically deploys to https://hip-flask.onrender.com/ <br/> 
+
+Info for deploying on Render: <br/>
+https://render.com/docs/deploy-flask#:~:text=You%20can%20deploy%20a%20Flask,app%20in%20a%20production%20setting <br/> 
+Use "gunicorn wsgi:app" as the start command. <br/>
+
 
 ## What makes this project interesting?
-- Overview: This is a Flask app optimized for deployment on Heroku through the use of Gunicorn WSGI (Web Server Gateway Interface) HTTP Server and other Heroku settings as detailed below. This app uses Bootstrap 5.1 elements for the UI.  
+- Overview: This is a Flask app optimized for deployment on Render through the use of Gunicorn WSGI (Web Server Gateway Interface) HTTP Server and other Heroku settings as detailed below. This app uses Bootstrap 5.1 elements for the UI.  
 - Vanilla JS with ZERO dependencies means UI updates occur up to 30x faster than they would using a framework such as React. (Sitewide)
 - ComicScraping: Performs web scraping against the website readcomiconline.li. Multiple public API endpoints for retrieving metadata and content for any available comic media on the website. Preempts any request with a call to a MongoDb Atlas cluster where any previously scraped data (by any user) is persisted. This helps to prevent unneeded requests, and thus helps prevent triggering anti-bot protection on the target site. Any request which isn't found in the database is scraped, and then persisted for future access. Flask is set to use a custom json_encoder to allow MongoDb outputs to be parsed correctly.
 - ComicScraping: Uses Requests library to read the source code for the target page. The target site attempts to use dynamically loaded content to make scraping more difficult, but I read the content links directly from inline JavaScript. Content links are manipulated on the fly according to UI elements the user sets, and allows for high or low quality images to be retrieved. Scraping happens on a timer to prevent anti-bot protections from being triggered.
@@ -75,11 +80,3 @@ Flask quickstart: https://flask.palletsprojects.com/en/2.0.x/quickstart/ <br/>
 Bootstrap components: https://getbootstrap.com/docs/5.0/customize/components/ <br/> 
 
 Client Side zip & download functionality is contained under static/utilities/zip <br/>
-
-## Heroku Notes
-
-To get opencv to work with Heroku follow these steps: <br/>
--Add this buildpack: https://github.com/heroku/heroku-buildpack-apt.git
--Create an Aptfile (just like Procfile, no extension)
--Add these to Aptfile, one per line: libsm6 libxrender1 libfontconfig1 libice6
--Change requirements.txt to use opencv-python-headless instead of opencv-python
